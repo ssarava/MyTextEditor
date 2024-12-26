@@ -1,0 +1,1 @@
+Inspired by @RyiSnow's notepad from Youtube
