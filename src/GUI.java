@@ -192,7 +192,6 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
     }
 
     public void createThemes() {
-
         toretto = new JMenuItem("Dom Toretto");
         toretto.addActionListener(this);
         toretto.setActionCommand("toretto");
@@ -272,13 +271,51 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         }
     }
 
+    public void enableTheme(String theme) {
+        switch (theme) {
+            case "ironman":
+                if (textArea.getTheme().equals("ironman")) {
+                    noTheme();
+                } 
+                else {
+                    textArea.setOpaque(true);
+                    Dimension d = window.getSize();
+                    textArea.setImage("ironman.png", (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
+                    if (!textArea.isThemeEnabled()) {
+                        textArea.toggleTheme();
+                    }
+                    textArea.setForeground(MyTextArea.DEFAULT_TEXT);
+                    textArea.setTheme("ironman");
+                    // textArea.setText("ironman theme enabled: "  + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
+                }
+                break;
+            case "toretto":
+                if (textArea.getTheme().equals("toretto")) {
+                    noTheme();
+                } else {
+                    textArea.setOpaque(true);
+                    Dimension d = window.getSize();
+                    textArea.setImage("toretto.png", (int) d.getWidth() - 475, (int) d.getHeight() - 650, 425, 600);
+                    if (!textArea.isThemeEnabled()) {
+                        textArea.toggleTheme();
+                    }
+                    textArea.setForeground(MyTextArea.DEFAULT_TEXT);
+                    textArea.setTheme("toretto");
+                    // textArea.setText("dom toretto theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme() + "\nis Opaque? " + textArea.isOpaque());
+                }
+                break;
+            default:
+            System.out.println("weird functinoality");
+        }
+    }
+
     public void levi() {
         if (textArea.getTheme().equals("levi")) {
             noTheme();
         } else {
             textArea.setOpaque(true);
             Dimension d = window.getSize();
-            textArea.setImage("levi.png", (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
+            textArea.setImage("levi.png", (int) d.getWidth() - 800, (int) d.getHeight() - 650, 800, 600);
             if (!textArea.isThemeEnabled()) {
                 textArea.toggleTheme();
             }
@@ -506,10 +543,12 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
                 enableSolidColorTheme("custom color");
                 break;
             case "ironman":
-                ironman();
+                // ironman();
+                enableTheme("ironman");
                 break;
             case "toretto":
-                toretto();
+                // toretto();
+                enableTheme("toretto");
                 break;
             case "levi":
                 levi();
@@ -691,18 +730,18 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
 
     @Override
     public void componentResized(ComponentEvent e) {
-        if (textArea.isThemeEnabled()) {
-            switch (textArea.getTheme()) {
-                case "ironman":
-                    ironman();
-                    break;
-                case "toretto":
-                    toretto();
-                    break;
-                default:
+        // if (textArea.isThemeEnabled()) {
+        //     switch (textArea.getTheme()) {
+        //         case "ironman":
+        //             ironman();
+        //             break;
+        //         case "toretto":
+        //             toretto();
+        //             break;
+        //         default:
                     
-            }
-        }
+        //     }
+        // }
         return;
     }
 

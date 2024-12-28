@@ -9,7 +9,6 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.undo.UndoManager;
 
-
 public class MyTextArea extends JTextArea {
 
     private Image bgImage;
@@ -48,11 +47,10 @@ public class MyTextArea extends JTextArea {
     public void initializeStyle() {
         themeEnabled = false;
         currTheme = "None";
-        super.setCaretColor(DEFAULT_CARET); // set color of the blinking caret
+        super.setCaretColor(DEFAULT_CARET);
         super.setForeground(DEFAULT_TEXT);
-        // super.setText("themeEnabled: " + themeEnabled + "\ncurrTheme = " + currTheme);
-        super.setMargin(new Insets(5, 5, 5, 5)); // margins of choice
-        super.setLineWrap(wordWrap); // don't need this if you have a horizontal scrollbar
+        super.setMargin(new Insets(5, 5, 5, 5));
+        super.setLineWrap(wordWrap); // don't need this if a horizontal scrollbar is present
     }
 
     public String getTheme() {
@@ -93,7 +91,7 @@ public class MyTextArea extends JTextArea {
 
     public void setWordWrapped() {
         wordWrap = !wordWrap;
-        super.setLineWrap(wordWrap);    // don't need this if you have a horizontal scrollbar
+        super.setLineWrap(wordWrap);
     }
 
     public String getFontFamily() {
@@ -129,6 +127,7 @@ public class MyTextArea extends JTextArea {
 
     public void setImage(String theme, int xPos, int yPos, int widthIn, int heightIn) {
         ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("images/" + theme));
+        // setText("default image width: " + icon.getIconWidth() + "\ndefault image height: " + icon.getIconHeight());  // debugging purposes
         bgImage = icon.getImage();
         imageX = xPos;
         imageY = yPos;
@@ -156,4 +155,5 @@ public class MyTextArea extends JTextArea {
         }
         super.paint(g);
     }
+
 }
