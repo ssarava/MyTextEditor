@@ -28,7 +28,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
     JMenuItem wordWrapOption; // Format menu items
     JMenu font, fontStyle;
     JMenuItem fontSizeOption;
-    JMenuItem arial, bookAntiqua, comicSans, timesNewRoman, msGothic, whiteItem, redItem, grayItem, darkGrayItem; // Color menu
+    JMenuItem arial, bookAntiqua, comicSans, timesNewRoman, msGothic, whiteItem, redItem, grayItem, darkGrayItem, customColor; // Color menu
     JMenuItem toretto, ironman, levi, reshiram, walter, zekrom, noTheme;
     JMenuItem bold, italic, plain;
 
@@ -60,6 +60,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         window.setMinimumSize(new Dimension(600, 650));
         window.setLocation(0, 0);
         window.addComponentListener(this);
+        window.setResizable(false);
     }
 
     public void createTextArea() {
@@ -188,68 +189,155 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         fontStyle.add(plain);
         
         format.add(fontStyle);
-
     }
 
     public void createThemes() {
 
         toretto = new JMenuItem("Dom Toretto");
         toretto.addActionListener(this);
-        toretto.setActionCommand("Toretto");
+        toretto.setActionCommand("toretto");
         theme.add(toretto);
 
         ironman = new JMenuItem("Ironman");
         ironman.addActionListener(this);
-        ironman.setActionCommand("Ironman");
+        ironman.setActionCommand("ironman");
         theme.add(ironman);
 
         levi = new JMenuItem("Levi");
         levi.addActionListener(this);
-        levi.setActionCommand("Levi");
+        levi.setActionCommand("levi");
         theme.add(levi);
 
         reshiram = new JMenuItem("Reshiram");
         reshiram.addActionListener(this);
-        reshiram.setActionCommand("Reshiram");
+        reshiram.setActionCommand("reshiram");
         theme.add(reshiram);
 
         walter = new JMenuItem("Heisenberg");
         walter.addActionListener(this);
-        walter.setActionCommand("Heisenberg");
+        walter.setActionCommand("heisenberg");
         theme.add(walter);
 
         zekrom = new JMenuItem("Zekrom");
         zekrom.addActionListener(this);
-        zekrom.setActionCommand("Zekrom");
+        zekrom.setActionCommand("zekrom");
         theme.add(zekrom);
 
         noTheme = new JMenuItem("None");
         noTheme.addActionListener(this);
-        noTheme.setActionCommand("No Theme");
+        noTheme.setActionCommand("noTheme");
         theme.add(noTheme);
-
-
-    }
-    
-    public static double getWidth(JFrame frame) {
-        return frame.getSize().getWidth();
     }
 
-    public static double getHeight(JFrame frame) {
-        return frame.getSize().getHeight();
+    public void noTheme() {
+        textArea.clearImage();
+        if (textArea.isThemeEnabled()) {
+            textArea.toggleTheme();
+        }
+        textArea.setTheme("None");
+        textArea.setForeground(MyTextArea.DEFAULT_TEXT);
+        // textArea.setText("no theme enabled" + "\ncurrTheme = " + textArea.getTheme());
     }
 
     public void ironman() {
-        Dimension d = window.getSize();
-        int w = (int) d.getWidth();
-        int h = (int) d.getHeight();
-        textArea.setImage("ironman.png", w - 600, h - 650, 600, 600);
-        // textArea.setText("width = " + w + "\nheight = " + h);
+        if (textArea.getTheme().equals("ironman")) {
+            noTheme();
+        } 
+        else {
+            textArea.setOpaque(true);
+            Dimension d = window.getSize();
+            textArea.setImage("ironman.png", (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
+            if (!textArea.isThemeEnabled()) {
+                textArea.toggleTheme();
+            }
+            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
+            textArea.setTheme("ironman");
+            // textArea.setText("ironman theme enabled: "  + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
+        }
+    }
 
-        textArea.setText("iron man theme enabled");
+    public void toretto() {
+        if (textArea.getTheme().equals("toretto")) {
+            noTheme();
+        } else {
+            textArea.setOpaque(true);
+            Dimension d = window.getSize();
+            textArea.setImage("dom.png", (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
+            if (!textArea.isThemeEnabled()) {
+                textArea.toggleTheme();
+            }
+            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
+            textArea.setTheme("toretto");
+            // textArea.setText("dom toretto theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme() + "\nis Opaque? " + textArea.isOpaque());
+        }
+    }
+
+    public void levi() {
+        if (textArea.getTheme().equals("levi")) {
+            noTheme();
+        } else {
+            textArea.setOpaque(true);
+            Dimension d = window.getSize();
+            textArea.setImage("levi.png", (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
+            if (!textArea.isThemeEnabled()) {
+                textArea.toggleTheme();
+            }
+            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
+            textArea.setTheme("levi");
+            // textArea.setText("levi theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
+        }
+    }
+
+    public void reshiram() {
+        if (textArea.getTheme().equals("reshiram")) {
+            noTheme();
+        } else {
+            textArea.setOpaque(true);
+            Dimension d = window.getSize();
+            textArea.setImage("reshiram.png", (int) d.getWidth() - 650, (int) d.getHeight() - 625, 625, 525);
+            if (!textArea.isThemeEnabled()) {
+                textArea.toggleTheme();
+            }
+            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
+            textArea.setTheme("reshiram");
+            // textArea.setText("reshiram theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
+        }
+    }
+
+    public void zekrom() {
+        if (textArea.getTheme().equals("zekrom")) {
+            noTheme();
+        } else {
+            textArea.setOpaque(true);
+            Dimension d = window.getSize();
+            textArea.setImage("zekrom.png", (int) d.getWidth() - 635, (int) d.getHeight() - 645, 660, 585);
+            if (!textArea.isThemeEnabled()) {
+                textArea.toggleTheme();
+            }
+            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
+            textArea.setTheme("zekrom");
+            // textArea.setText("zekrom theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
+        }
+    }
+
+    public void heisenberg() {
+        if (textArea.getTheme().equals("heisenberg")) {
+            noTheme();
+        } else {
+            textArea.setOpaque(true);
+            Dimension d = window.getSize();
+            textArea.setImage("heisenberg.png", (int) d.getWidth() - 500, (int) d.getHeight() - 635, 450, 585);
+            if (!textArea.isThemeEnabled()) {
+                textArea.toggleTheme();
+            }
+            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
+            textArea.setTheme("heisenberg");
+            // textArea.setText("heisenberg theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
+        }
     }
 
     public void toggleWordWrapText() {
+        textArea.setWordWrapped();
         wordWrapOption.setText(textArea.isWordWrapped() ? "Disable Word Wrap" : "Enable Word Wrap");
     }
 
@@ -295,10 +383,56 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         darkGrayItem.addActionListener(this);
         darkGrayItem.setActionCommand("Dark Gray");
         color.add(darkGrayItem);
+
+        customColor = new JMenuItem("Custom");
+        customColor.addActionListener(this);
+        customColor.setActionCommand("custom color");
+        color.add(customColor);
     }
 
     public JFrame getWindow() {
         return window;
+    }
+
+    public void enableSolidColorTheme(String color) {
+        if (textArea.isThemeEnabled()) {
+            textArea.toggleTheme();
+            textArea.clearImage();
+            noTheme();
+        }
+        textArea.setOpaque(true);
+        color = color.toLowerCase();
+        switch (color) {
+            case "white":
+                textArea.setBackground(Color.WHITE);
+                textArea.setForeground(Color.BLACK);
+                textArea.setCaretColor(MyTextArea.DEFAULT_CARET);
+                break;
+            case "red":
+                textArea.setBackground(Color.RED);
+                textArea.setForeground(Color.WHITE);
+                textArea.setCaretColor(Color.WHITE);
+                break;
+            case "gray":
+                textArea.setBackground(Color.GRAY);
+                textArea.setForeground(Color.WHITE);
+                textArea.setCaretColor(MyTextArea.DEFAULT_CARET);
+                break;
+            case "dark gray":
+                textArea.setBackground(Color.DARK_GRAY);
+                textArea.setForeground(Color.WHITE);
+                textArea.setCaretColor(MyTextArea.DEFAULT_CARET);
+                break;
+            case "custom color":
+                Color selectedColor = JColorChooser.showDialog(null, "Choose a Color", Color.MAGENTA);
+                textArea.setBackground(selectedColor);
+                textArea.setForeground(Color.BLACK);
+                textArea.setCaretColor(Color.BLACK);
+
+            default:
+                System.out.println("color change invalid");
+        }
+        // textArea.setText("no theme enabled" + "\ncurrTheme = " + textArea.getTheme() + "\nis Opaque? " + textArea.isOpaque());
     }
 
     @Override
@@ -326,7 +460,6 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
                 redo();
                 break;
             case "Toggle Word Wrap":
-                textArea.setWordWrapped();
                 toggleWordWrapText();
                 break;
             case "Arial":
@@ -357,51 +490,40 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
                 textArea.setFontStyle(Font.PLAIN);
                 break;
             case "White":
-                if (textArea.isThemeEnabled()) {
-                    textArea.toggleTheme();
-                    textArea.clearImage();
-                }
-                textArea.setBackground(Color.WHITE);
-                textArea.setForeground(Color.BLACK);
-                textArea.setCaretColor(MyTextArea.DEFAULT_CARET);
+                enableSolidColorTheme("white");
                 break;
             case "Red":
-                if (textArea.isThemeEnabled()) {
-                    textArea.toggleTheme();
-                    textArea.clearImage();
-                }
-                textArea.setBackground(Color.RED);
-                textArea.setForeground(Color.WHITE);
-                textArea.setCaretColor(Color.WHITE);
+                enableSolidColorTheme("red");
                 break;
             case "Gray":
-                if (textArea.isThemeEnabled()) {
-                    textArea.toggleTheme();
-                    textArea.clearImage();
-                }
-                textArea.setBackground(Color.GRAY);
-                textArea.setForeground(Color.WHITE);
-                textArea.setCaretColor(MyTextArea.DEFAULT_CARET);
+                enableSolidColorTheme("gray");
                 break;
             case "Dark Gray":
-                if (textArea.isThemeEnabled()) {
-                    textArea.toggleTheme();
-                    textArea.clearImage();
-                }
-                textArea.setBackground(Color.DARK_GRAY);
-                textArea.setForeground(Color.WHITE);
-                textArea.setCaretColor(MyTextArea.DEFAULT_CARET);
+                enableSolidColorTheme("dark gray");
                 break;
-            case "Ironman":
-                
-                textArea.toggleTheme();
+            case "custom color":
+                enableSolidColorTheme("custom color");
+                break;
+            case "ironman":
                 ironman();
                 break;
-                
-            case "No Theme":
-                if (textArea.isThemeEnabled()) {
-                    textArea.toggleTheme();
-                }
+            case "toretto":
+                toretto();
+                break;
+            case "levi":
+                levi();
+                break;
+            case "reshiram":
+                reshiram();
+                break;
+            case "zekrom":
+                zekrom();
+                break;
+            case "heisenberg":
+                heisenberg();
+                break;
+            case "noTheme":
+                noTheme();
                 break;
             default:
                 System.out.println("Default");
@@ -569,9 +691,19 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
 
     @Override
     public void componentResized(ComponentEvent e) {
-        if (textArea.isThemeEnabled()) {
-            ironman();
-        }
+        // if (textArea.isThemeEnabled()) {
+        //     switch (textArea.getTheme()) {
+        //         case "ironman":
+        //             ironman();
+        //             break;
+        //         case "toretto":
+        //             toretto();
+        //             break;
+        //         default:
+                    
+        //     }
+        // }
+        return;
     }
 
     @Override

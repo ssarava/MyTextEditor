@@ -14,7 +14,7 @@ public class MyTextArea extends JTextArea {
 
     private Image bgImage;
     private int imageX, imageY, imageWidth, imageHeight, fontSize, fontStyle;
-    private String fontFamily;
+    private String fontFamily, currTheme;
     private boolean bolded, italicized, wordWrap, themeEnabled;
     private UndoManager manager;
 
@@ -47,12 +47,20 @@ public class MyTextArea extends JTextArea {
 
     public void initializeStyle() {
         themeEnabled = false;
+        currTheme = "None";
         super.setCaretColor(DEFAULT_CARET); // set color of the blinking caret
-        // super.setBackground(DEFAULT_BG);
         super.setForeground(DEFAULT_TEXT);
-        super.setText("themeEnabled: " + themeEnabled);
+        // super.setText("themeEnabled: " + themeEnabled + "\ncurrTheme = " + currTheme);
         super.setMargin(new Insets(5, 5, 5, 5)); // margins of choice
         super.setLineWrap(wordWrap); // don't need this if you have a horizontal scrollbar
+    }
+
+    public String getTheme() {
+        return currTheme;
+    }
+
+    public void setTheme(String theme) {
+        currTheme = theme;
     }
 
     public boolean isThemeEnabled() {
@@ -61,7 +69,6 @@ public class MyTextArea extends JTextArea {
 
     public void toggleTheme() {
         themeEnabled = !themeEnabled;
-        super.setText("themeEnabled: " + themeEnabled);
     }
 
     public boolean isBolded() {
