@@ -21,17 +21,16 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
     JFrame window;
     MyTextArea textArea;
     JScrollPane scrollPane;
-    JMenuBar menuBar; // a "menu of menus" in bar format
-    JMenu file, edit, format, color, theme; // Menu bar items
-    JMenuItem newOption, openOption, exitOption, saveOption, saveAsOption; // File menu items
-    JMenuItem undoOption, redoOption; // Edit menu items
-    JMenuItem wordWrapOption; // Format menu items
+    JMenuBar menuBar;
+    JMenu file, edit, format, color, theme;
+    JMenuItem newOption, openOption, exitOption, saveOption, saveAsOption; 
+    JMenuItem undoOption, redoOption; 
+    JMenuItem wordWrapOption; 
     JMenu font, fontStyle;
     JMenuItem fontSizeOption;
-    JMenuItem arial, bookAntiqua, comicSans, timesNewRoman, msGothic, whiteItem, redItem, grayItem, darkGrayItem, customColor; // Color menu
+    JMenuItem arial, bookAntiqua, comicSans, timesNewRoman, msGothic, whiteItem, redItem, grayItem, darkGrayItem, customColor;
     JMenuItem toretto, ironman, levi, reshiram, walter, zekrom, noTheme;
     JMenuItem bold, italic, plain;
-
     String fileName = null, fileAddress = null;
 
     public static void main(String[] args) {
@@ -49,7 +48,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         createColorMenu();
         createThemes();
 
-        // Make sure this is last, so that the window and all components are displayed
+        // For all components to be displayed, this must come last
         window.setVisible(true);
     }
 
@@ -60,7 +59,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         window.setMinimumSize(new Dimension(900, 650));
         window.setLocation(0, 0);
         window.addComponentListener(this);
-        window.setResizable(true);
+        window.setResizable(false);
     }
 
     public void createTextArea() {
@@ -69,8 +68,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
     }
 
     public void createScrollPane() {
-        // scrollpane viewport contains the text area
-        scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);   // scrollpane viewport contains the text area
         scrollPane.setBorder(BorderFactory.createEmptyBorder()); // subtle difference; remove and observe bottom border of text area
         window.add(scrollPane);
     }
@@ -235,142 +233,44 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         }
         textArea.setTheme("None");
         textArea.setForeground(MyTextArea.DEFAULT_TEXT);
-        // textArea.setText("no theme enabled" + "\ncurrTheme = " + textArea.getTheme());
-    }
-
-    public void ironman() {
-        if (textArea.getTheme().equals("ironman")) {
-            noTheme();
-        } 
-        else {
-            textArea.setOpaque(true);
-            Dimension d = window.getSize();
-            textArea.setImage("ironman.png", (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
-            if (!textArea.isThemeEnabled()) {
-                textArea.toggleTheme();
-            }
-            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
-            textArea.setTheme("ironman");
-            // textArea.setText("ironman theme enabled: "  + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
-        }
-    }
-
-    public void toretto() {
-        if (textArea.getTheme().equals("toretto")) {
-            noTheme();
-        } else {
-            textArea.setOpaque(true);
-            Dimension d = window.getSize();
-            textArea.setImage("toretto.png", (int) d.getWidth() - 475, (int) d.getHeight() - 650, 425, 600);
-            if (!textArea.isThemeEnabled()) {
-                textArea.toggleTheme();
-            }
-            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
-            textArea.setTheme("toretto");
-            // textArea.setText("dom toretto theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme() + "\nis Opaque? " + textArea.isOpaque());
-        }
+        // textArea.setText("No theme enabled: "  + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme() + "\nis Opaque? " + textArea.isOpaque());
     }
 
     public void enableTheme(String theme) {
+        if (textArea.getTheme().equals(theme)) {
+            noTheme();
+            return;
+        } 
+        textArea.setOpaque(true);
+        Dimension d = window.getSize();
         switch (theme) {
             case "ironman":
-                if (textArea.getTheme().equals("ironman")) {
-                    noTheme();
-                } 
-                else {
-                    textArea.setOpaque(true);
-                    Dimension d = window.getSize();
-                    textArea.setImage("ironman.png", (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
-                    if (!textArea.isThemeEnabled()) {
-                        textArea.toggleTheme();
-                    }
-                    textArea.setForeground(MyTextArea.DEFAULT_TEXT);
-                    textArea.setTheme("ironman");
-                    // textArea.setText("ironman theme enabled: "  + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
-                }
+                textArea.setImage("ironman.png", (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
                 break;
             case "toretto":
-                if (textArea.getTheme().equals("toretto")) {
-                    noTheme();
-                } else {
-                    textArea.setOpaque(true);
-                    Dimension d = window.getSize();
-                    textArea.setImage("toretto.png", (int) d.getWidth() - 475, (int) d.getHeight() - 650, 425, 600);
-                    if (!textArea.isThemeEnabled()) {
-                        textArea.toggleTheme();
-                    }
-                    textArea.setForeground(MyTextArea.DEFAULT_TEXT);
-                    textArea.setTheme("toretto");
-                    // textArea.setText("dom toretto theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme() + "\nis Opaque? " + textArea.isOpaque());
-                }
+                textArea.setImage("toretto.png", (int) d.getWidth() - 475, (int) d.getHeight() - 650, 425, 600);
+                break;
+            case "levi":
+                textArea.setImage("levi.png", (int) d.getWidth() - 800, (int) d.getHeight() - 650, 800, 600);
+                break;
+            case "reshiram":
+                textArea.setImage("reshiram.png", (int) d.getWidth() - 650, (int) d.getHeight() - 625, 625, 525);
+                break;
+            case "zekrom":
+                textArea.setImage("zekrom.png", (int) d.getWidth() - 635, (int) d.getHeight() - 645, 660, 585);
+                break;
+            case "heisenberg":
+                textArea.setImage("heisenberg.png", (int) d.getWidth() - 500, (int) d.getHeight() - 635, 450, 585);
                 break;
             default:
-            System.out.println("weird functinoality");
+                System.out.println("ruh roh");
         }
-    }
-
-    public void levi() {
-        if (textArea.getTheme().equals("levi")) {
-            noTheme();
-        } else {
-            textArea.setOpaque(true);
-            Dimension d = window.getSize();
-            textArea.setImage("levi.png", (int) d.getWidth() - 800, (int) d.getHeight() - 650, 800, 600);
-            if (!textArea.isThemeEnabled()) {
-                textArea.toggleTheme();
-            }
-            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
-            textArea.setTheme("levi");
-            // textArea.setText("levi theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
+        textArea.setTheme(theme);
+        if (!textArea.isThemeEnabled()) {
+            textArea.toggleTheme();
         }
-    }
-
-    public void reshiram() {
-        if (textArea.getTheme().equals("reshiram")) {
-            noTheme();
-        } else {
-            textArea.setOpaque(true);
-            Dimension d = window.getSize();
-            textArea.setImage("reshiram.png", (int) d.getWidth() - 650, (int) d.getHeight() - 625, 625, 525);
-            if (!textArea.isThemeEnabled()) {
-                textArea.toggleTheme();
-            }
-            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
-            textArea.setTheme("reshiram");
-            // textArea.setText("reshiram theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
-        }
-    }
-
-    public void zekrom() {
-        if (textArea.getTheme().equals("zekrom")) {
-            noTheme();
-        } else {
-            textArea.setOpaque(true);
-            Dimension d = window.getSize();
-            textArea.setImage("zekrom.png", (int) d.getWidth() - 635, (int) d.getHeight() - 645, 660, 585);
-            if (!textArea.isThemeEnabled()) {
-                textArea.toggleTheme();
-            }
-            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
-            textArea.setTheme("zekrom");
-            // textArea.setText("zekrom theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
-        }
-    }
-
-    public void heisenberg() {
-        if (textArea.getTheme().equals("heisenberg")) {
-            noTheme();
-        } else {
-            textArea.setOpaque(true);
-            Dimension d = window.getSize();
-            textArea.setImage("heisenberg.png", (int) d.getWidth() - 500, (int) d.getHeight() - 635, 450, 585);
-            if (!textArea.isThemeEnabled()) {
-                textArea.toggleTheme();
-            }
-            textArea.setForeground(MyTextArea.DEFAULT_TEXT);
-            textArea.setTheme("heisenberg");
-            // textArea.setText("heisenberg theme enabled: " + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme());
-        }
+        // textArea.setText(theme + " theme enabled: "  + textArea.isThemeEnabled() + "\ncurrTheme = " + textArea.getTheme() + "\nis Opaque? " + textArea.isOpaque());
+        textArea.setForeground(MyTextArea.DEFAULT_TEXT);
     }
 
     public void toggleWordWrapText() {
@@ -389,20 +289,19 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
     }
 
     public void changeFontSize() {
-        int fontSize = 12;
+        int newSize = 12;
         String input = JOptionPane.showInputDialog("Enter a font size");
         try {
-            fontSize = Integer.parseInt(input);
+            newSize = Integer.parseInt(input);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Unreadable font size!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        if (fontSize < 6 || fontSize > 60) {
+
+        if (newSize < 6 || newSize > 60) {
             JOptionPane.showMessageDialog(textArea, "You entered an invalid font size", "Invalid font size", JOptionPane.ERROR_MESSAGE);
         } else {
-            float newSize = 1.0f * fontSize;
-            textArea.setFontSize(newSize);
+            textArea.setFontSize(1.0f * newSize);
         }
     }
 
@@ -543,24 +442,22 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
                 enableSolidColorTheme("custom color");
                 break;
             case "ironman":
-                // ironman();
                 enableTheme("ironman");
                 break;
             case "toretto":
-                // toretto();
                 enableTheme("toretto");
                 break;
             case "levi":
-                levi();
+                enableTheme("levi");
                 break;
             case "reshiram":
-                reshiram();
+                enableTheme("reshiram");
                 break;
             case "zekrom":
-                zekrom();
+                enableTheme("zekrom");
                 break;
             case "heisenberg":
-                heisenberg();
+                enableTheme("heisenberg");
                 break;
             case "noTheme":
                 noTheme();
@@ -623,7 +520,10 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
      */
     public void saveFile() {
         if (fileName == null) {
-            JOptionPane.showMessageDialog(null, "From 'Save As', the file name is NULL", "Error", JOptionPane.ERROR_MESSAGE);
+            if (textArea.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Your file is empty. No need to save", "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             saveFileAs();
         } else {
             try {
@@ -649,11 +549,13 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         FileDialog fd = new FileDialog(window, "Save a file!", FileDialog.SAVE);
         fd.setVisible(true);
 
-        if (fd.getFile() != null) {
-            fileName = fd.getFile();
-            fileAddress = fd.getDirectory();
-            window.setTitle(fileName);
+        if (fd.getFile() == null) {
+            return;
         }
+        
+        fileName = fd.getFile();
+        fileAddress = fd.getDirectory();
+        window.setTitle(fileName);
 
         try {
             FileWriter fw = new FileWriter(fileAddress + fileName);
@@ -710,11 +612,11 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
             } else if (keyCode == KeyEvent.VK_Y) {
                 redo();
             } else if (keyCode == KeyEvent.VK_W) {
-                int response = JOptionPane.showConfirmDialog(textArea, "Do you want to save your file?");
+                int response = JOptionPane.showConfirmDialog(null, "Do you want to save your file?");
                 switch (response) {
                     case JOptionPane.OK_OPTION:
                         saveFile();
-                        break;
+                        exit();
                     case JOptionPane.NO_OPTION:
                         exit();
                     default:
@@ -730,18 +632,6 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
 
     @Override
     public void componentResized(ComponentEvent e) {
-        // if (textArea.isThemeEnabled()) {
-        //     switch (textArea.getTheme()) {
-        //         case "ironman":
-        //             ironman();
-        //             break;
-        //         case "toretto":
-        //             toretto();
-        //             break;
-        //         default:
-                    
-        //     }
-        // }
         return;
     }
 
