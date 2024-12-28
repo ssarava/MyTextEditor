@@ -57,10 +57,10 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         window = new JFrame("MyTextEditor");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(new Dimension(900, 600));
-        window.setMinimumSize(new Dimension(600, 650));
+        window.setMinimumSize(new Dimension(900, 650));
         window.setLocation(0, 0);
         window.addComponentListener(this);
-        window.setResizable(false);
+        window.setResizable(true);
     }
 
     public void createTextArea() {
@@ -262,7 +262,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         } else {
             textArea.setOpaque(true);
             Dimension d = window.getSize();
-            textArea.setImage("dom.png", (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
+            textArea.setImage("toretto.png", (int) d.getWidth() - 475, (int) d.getHeight() - 650, 425, 600);
             if (!textArea.isThemeEnabled()) {
                 textArea.toggleTheme();
             }
@@ -352,14 +352,20 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
     }
 
     public void changeFontSize() {
+        int fontSize = 12;
         String input = JOptionPane.showInputDialog("Enter a font size");
-        int fontSize = Integer.parseInt(input);
+        try {
+            fontSize = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Unreadable font size!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         if (fontSize < 6 || fontSize > 60) {
             JOptionPane.showMessageDialog(textArea, "You entered an invalid font size", "Invalid font size", JOptionPane.ERROR_MESSAGE);
         } else {
             float newSize = 1.0f * fontSize;
             textArea.setFontSize(newSize);
-            System.out.println("Changed font size to " + newSize);
         }
     }
 
@@ -388,10 +394,6 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         customColor.addActionListener(this);
         customColor.setActionCommand("custom color");
         color.add(customColor);
-    }
-
-    public JFrame getWindow() {
-        return window;
     }
 
     public void enableSolidColorTheme(String color) {
@@ -428,9 +430,8 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
                 textArea.setBackground(selectedColor);
                 textArea.setForeground(Color.BLACK);
                 textArea.setCaretColor(Color.BLACK);
-
             default:
-                System.out.println("color change invalid");
+                JOptionPane.showMessageDialog(null, "Something went wrong!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
         // textArea.setText("no theme enabled" + "\ncurrTheme = " + textArea.getTheme() + "\nis Opaque? " + textArea.isOpaque());
     }
@@ -526,7 +527,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
                 noTheme();
                 break;
             default:
-                System.out.println("Default");
+                JOptionPane.showMessageDialog(null, "Something went wrong!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -561,7 +562,6 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
 
         try {
             FileReader fr = new FileReader(fileAddress + fileName); // reads the chosen file
-            System.out.println("File address and file name: " + fileAddress + fileName);
             BufferedReader br = new BufferedReader(fr); // creates a character buffer stream given 'fr'
 
             textArea.setText(""); // clear the text area
@@ -570,7 +570,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
             }
             br.close(); // close buffered reader
         } catch (Exception e) {
-            System.out.println("failed to open file");
+            JOptionPane.showMessageDialog(null, "Failed to open file", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -584,7 +584,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
      */
     public void saveFile() {
         if (fileName == null) {
-            System.out.println("from 'Save As', the file name is NULL");
+            JOptionPane.showMessageDialog(null, "From 'Save As', the file name is NULL", "Error", JOptionPane.ERROR_MESSAGE);
             saveFileAs();
         } else {
             try {
@@ -594,7 +594,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
                 fw.close();
 
             } catch (Exception e) {
-                System.out.println("couldn't save file");
+                JOptionPane.showMessageDialog(null, "Couldn't save file!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -622,7 +622,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
             fw.close();
 
         } catch (Exception e) {
-            System.out.println("couldn't save file as");
+            JOptionPane.showMessageDialog(null, "Couldn't save file!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -637,7 +637,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         try {
             textArea.getManager().undo();
         } catch (CannotUndoException e) {
-            System.out.println("You tried to undo something that can't be undone!");
+            JOptionPane.showMessageDialog(null, "You tried to undo something that can't be undone!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -645,7 +645,7 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
         try {
             textArea.getManager().redo();
         } catch (CannotRedoException e) {
-            System.out.println("You tried to redo something that can't be redone!");
+            JOptionPane.showMessageDialog(null, "You tried to redo something that can't be redone!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -691,18 +691,18 @@ public class GUI implements ActionListener, KeyListener, ComponentListener {
 
     @Override
     public void componentResized(ComponentEvent e) {
-        // if (textArea.isThemeEnabled()) {
-        //     switch (textArea.getTheme()) {
-        //         case "ironman":
-        //             ironman();
-        //             break;
-        //         case "toretto":
-        //             toretto();
-        //             break;
-        //         default:
+        if (textArea.isThemeEnabled()) {
+            switch (textArea.getTheme()) {
+                case "ironman":
+                    ironman();
+                    break;
+                case "toretto":
+                    toretto();
+                    break;
+                default:
                     
-        //     }
-        // }
+            }
+        }
         return;
     }
 
