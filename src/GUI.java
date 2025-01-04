@@ -21,7 +21,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -77,10 +76,10 @@ public class GUI extends JFrame implements ActionListener, KeyListener, Componen
         super.setTitle("MyTextEditor");
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setSize(new Dimension(650, 600)); // reset width to 900
-        super.setMinimumSize(new Dimension(600, 600)); // reset min-width to 900
+        super.setMinimumSize(new Dimension(600, 650)); // reset min-width to 900
         super.setLocation(0, 0);
         super.addComponentListener(this);
-        super.setResizable(false);
+        super.setResizable(true);
     }
 
     public void createTextArea() {
@@ -863,6 +862,12 @@ public class GUI extends JFrame implements ActionListener, KeyListener, Componen
 
     @Override
     public void componentResized(ComponentEvent e) {
+        // System.out.println("hello");
+        
+        // if (!textArea.getTheme().equals("None")) {
+        //     Dimension d = super.getSize();
+        //     textArea.setImage(textArea.getTheme(), (int) d.getWidth() - 600, (int) d.getHeight() - 650, 600, 600);
+        // }
         return;
     }
 

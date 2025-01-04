@@ -14,7 +14,7 @@ import javax.swing.undo.UndoManager;
 public class MyTextArea extends JTextArea {
 
     private Image bgImage;
-    private int imageX, imageY, imageWidth, imageHeight, fontSize, fontStyle;
+    private int fontSize, fontStyle;
     private String fontFamily, currTheme;
     private boolean bolded, italicized, wordWrap, themeEnabled;
     private UndoManager manager;
@@ -141,30 +141,28 @@ public class MyTextArea extends JTextArea {
         ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("images/" + theme));
         // setText("default image width: " + icon.getIconWidth() + "\ndefault image height: " + icon.getIconHeight());  // debugging purposes
         bgImage = icon.getImage();
-        imageX = xPos;
-        imageY = yPos;
-        imageWidth = widthIn;
-        imageHeight = heightIn;
         setOpaque(false);
         repaint();
     }
 
     public void clearImage() {
         bgImage = null;
-        imageX = 0;
-        imageY = 0;
-        imageWidth = 0;
-        imageHeight = 0;
         repaint();
     }
 
-    public void paint(Graphics g) {
-        if (themeEnabled) {
-            g.drawImage(bgImage, imageX, imageY, imageWidth, imageHeight, null);
-        } else {
-            clearImage();
-        }
-        super.paint(g);
-    }
+    // public void paint(Graphics g) {
+    //     if (themeEnabled) {
+    //         g.drawImage(bgImage, imageX, imageY, imageWidth, imageHeight, null);
+    //     } else {
+    //         clearImage();
+    //     }
+    //     super.paint(g);
+    // }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        // g.drawImage(bgImage,imageX,imageY,null);
+        g.drawImage(bgImage, getWidth() - 600, getHeight() - 600, 600, 600, this);
+        super.paintComponent(g);
+    }
 }
