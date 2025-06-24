@@ -1,6 +1,6 @@
 ## MyTextEditor
 
-This project was inspired by [RyiSnow's](https://www.youtube.com/@RyiSnow/featured) notepad [tutorial](https://www.youtube.com/watch?v=UZyZ31nrL2U&list=PL_QPQmz5C6WUTPONMeQcEEdKax0wGsnZB).
+Inspired by [RyiSnow's](https://www.youtube.com/@RyiSnow/featured) notepad [tutorial](https://www.youtube.com/watch?v=UZyZ31nrL2U&list=PL_QPQmz5C6WUTPONMeQcEEdKax0wGsnZB).
 
 The editor's basic components mimic that of the original implementation; however, I added functionality in accordance with what I saw observed from common text editors such as NotePad, TextEdit, and Visual Studio Code.
 
